@@ -1,0 +1,64 @@
+#Vacuum Cleaner Agent
+def vacuum_world():
+    # Initializing goal_state: 0 indicates Clean, 1 indicates Dirty
+    goal_state = {'A': '0', 'B': '0'}
+    cost = 0
+
+    # User inputs
+    location_input = input("Enter Location of Vacuum (A or B): ")
+    status_input = input(f"Enter status of {location_input} (0 for Clean, 1 for Dirty): ")
+    status_input_complement = input("Enter status of other room (0 for Clean, 1 for Dirty): ")
+
+    print("Initial Location Condition:", goal_state)
+
+    # Function to clean a location
+    def clean(location):
+        nonlocal cost
+        goal_state[location] = '0'
+        cost += 1
+        print(f"Location {location} has been Cleaned. Cost for CLEANING: {cost}")
+
+    # Function to move to a location
+    def move(location):
+        nonlocal cost
+        cost += 1
+        print(f"Moving to Location {location}. Cost for moving: {cost}")
+
+    if location_input == 'A':
+        if status_input == '1':
+            print("Location A is Dirty.")
+            clean('A')
+            if status_input_complement == '1':
+                print("Location B is Dirty.")
+                move('B')
+                clean('B')
+        else:
+            print("Location A is already clean.")
+            if status_input_complement == '1':
+                print("Location B is Dirty.")
+                move('B')
+                clean('B')
+
+    else:  # Vacuum is placed in location B
+        if status_input == '1':
+            print("Location B is Dirty.")
+            clean('B')
+            if status_input_complement == '1':
+                print("Location A is Dirty.")
+                move('A')
+                clean('A')
+        else:
+            print("Location B is already clean.")
+            if status_input_complement == '1':
+                print("Location A is Dirty.")
+                move('A')
+                clean('A')
+
+    # Final output
+    print("GOAL STATE:", goal_state)
+    print("Performance Measurement:", cost)
+
+# Call the function to run it
+vacuum_world()
+
+print("Sparsha Srinath Kadaba - 1BM22CS287")
